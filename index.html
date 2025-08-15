@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/app.js" type="module" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html">todos</a></div>
+            <a href="help.html">Aide</a>
+        </nav>    
+        <h1>Mes Taches</h1>
+    </header>
+    <main>
+        <form>
+            <input type="text" placeholder="Ajouter une tache" required>
+            <button type="submit">+</button>
+        </form>
+        <section class="todos">
+            <ul></ul>
+        </section>
+        <template>
+            <li>
+                <input type="checkbox" name="etat">Tache a accomplir<button class="delete">X</button>
+            </li>
+        </template>
+    </main>
+</body>
+</html>
