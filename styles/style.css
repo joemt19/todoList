@@ -5,6 +5,32 @@
     list-style-type: none;
 }
 
+.error {
+    width: 90%;
+    height: 10vh;
+    text-align: center;
+    color: #fff;
+    font-size: 17px;
+    background-color: rgba(211, 101, 101, 0.705);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .6em;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: flex;
+}
+
+.error > p {
+    text-align: center;
+}
+
 body {
     min-height: 100vh;
     font-family: 'Noto sans';
