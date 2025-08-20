@@ -1,21 +1,31 @@
-// Récupération des éléments
-const ajouer =  document.querySelector('form');
-const supprimer = document.querySelector('.delete');
-const champ = document.querySelector('#newtask');
-const list = document.querySelector('ul');
-const li = document.createElement('li');
 
 /**
  * @param {string} elem 
  * @return {HTMLElement}
  */
-function append(elem) {
-    li.innerHTML = 
-        `<div class="task">
-            <input type="checkbox" name="etat">${elem}
+function ajouter(elem) {
+    const li = document.createElement('li');
+    li.innerHTML += 
+        `<div class="task ${localStorage.length}">
+            <input type="checkbox">${elem}
         </div>
         <button class="delete">X</button>`;
-    list.appendChild(li);
+    list.prepend(li);
+}
+
+
+// Récupération des éléments
+const ajouer =  document.querySelector('form');
+const supprimer = document.querySelector('.delete');
+const champ = document.querySelector('#newtask');
+const list = document.querySelector('ul');
+
+// Affichage des tâches
+if (localStorage.length >= 0) {
+    for (let i = 0; i < localStorage.length; i++) {
+        const task = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        ajouter(task.sujet);
+    }
 }
 
 // Ajout des évènements
@@ -27,7 +37,24 @@ ajouer.addEventListener('submit', (e) => {
         return;
     };
     document.querySelector('.error').classList.add('hide');
-    append(texte);
+    ajouter(texte);
+    if (localStorage.length >= 0) {
+        localStorage.setItem(`task ${localStorage.length + 1}`,
+            JSON.stringify({
+                id: Date.now(),
+                sujet: texte,
+                done: false
+            })
+        );
+    }
     champ.value = '';
     champ.focus();
 })
+
+list.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.classList.contains("delete")) {
+        e.target.parentElement.classList.add('hide');
+        localStorage.removeItem(e.target.previousSibling.previousSibling.className);
+    }
+});
