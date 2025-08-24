@@ -1,18 +1,30 @@
 
 /**
  * @param {string} elem 
- * @return {HTMLElement}
  */
 function ajouter(elem) {
-    const li = document.createElement('li');
+    const li = document.createElement('li'); 
     li.innerHTML += 
-        `<div class="task ${localStorage.length}">
+        `<div class="task ${localStorage.length + 1}">
             <input type="checkbox">${elem}
         </div>
         <button class="delete">X</button>`;
     list.prepend(li);
 }
 
+/**
+ * 
+ * @param {object} tasks 
+ */
+function recuperer(tasks) {
+    const li = document.createElement('li');
+    li.innerHTML += 
+        `<div class="task ${tasks.id}">
+            <input type="checkbox">${tasks.sujet}
+        </div>
+        <button class="delete">X</button>`;
+    list.prepend(li);
+}
 
 // Récupération des éléments
 const ajouer =  document.querySelector('form');
@@ -21,10 +33,11 @@ const champ = document.querySelector('#newtask');
 const list = document.querySelector('ul');
 
 // Affichage des tâches
-if (localStorage.length >= 0) {
-    for (let i = 0; i < localStorage.length; i++) {
+if (localStorage.length > 0) {
+    for (let i = 0 ; i < localStorage.length ; i++) {
         const task = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        ajouter(task.sujet);
+        console.log(localStorage.key(i))
+        recuperer(task);
     }
 }
 
@@ -38,10 +51,20 @@ ajouer.addEventListener('submit', (e) => {
     };
     document.querySelector('.error').classList.add('hide');
     ajouter(texte);
-    if (localStorage.length >= 0) {
-        localStorage.setItem(`task ${localStorage.length + 1}`,
+    const num = localStorage.length + 1;
+    if (localStorage.length !== 0) {
+        const lastTask = JSON.parse(localStorage.getItem(localStorage.key(localStorage.length - 1)));
+        localStorage.setItem(`task ${num}`,
             JSON.stringify({
-                id: Date.now(),
+                id: lastTask.id + 1,
+                 sujet: texte,
+                done: false
+            })
+        );
+    } else {
+        localStorage.setItem(`task 1`,
+            JSON.stringify({
+                id: 1,
                 sujet: texte,
                 done: false
             })
@@ -55,6 +78,6 @@ list.addEventListener('click', (e) => {
     e.preventDefault();
     if (e.target.classList.contains("delete")) {
         e.target.parentElement.classList.add('hide');
-        localStorage.removeItem(e.target.previousSibling.previousSibling.className);
+        console.log(e.target.previousSibling.previousSibling.className);
     }
 });
