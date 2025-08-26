@@ -110,6 +110,7 @@ li button {
     border-radius: .4em;
     text-align: center;
     border: none;
+    color: #000;
 }
 
 li button:hover  {
