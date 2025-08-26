@@ -23,10 +23,6 @@
     display: none;
 }
 
-.show {
-    display: flex;
-}
-
 .error > p {
     text-align: center;
 }
