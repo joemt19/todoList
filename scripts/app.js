@@ -21,6 +21,17 @@ function ajouter(elem) {
     list.prepend(li);
 }
 
+/**
+ * 
+ * @param {string} str 
+ * @returns {HTMLElement}
+ */
+function safeInput(str) {
+    const span = document.createElement('span');
+    span.textContent = str;
+    return span.innerHTML;
+}
+
 // Affichage des tâches existantes
 if (localStorage.length > 0) {
     taches = JSON.parse(localStorage.getItem("Taches"))
@@ -33,7 +44,7 @@ if (localStorage.length > 0) {
 // Ajout d'une tache
 formulaire.addEventListener('submit', (e) => {
     e.preventDefault();
-    const texte = champ.value.trim();
+    const texte = safeInput(champ.value.trim());
     if (!texte) {
         document.querySelector('.error').classList.remove('hide');
         return;
@@ -41,7 +52,6 @@ formulaire.addEventListener('submit', (e) => {
     document.querySelector('.error').classList.add('hide');
     if (taches.length > 0) {
         const lastTask = taches[taches.length - 1];
-        console.log(lastTask, lastTask.id + 1);
         const newTask = {
             id: lastTask.id + 1,
             sujet: texte

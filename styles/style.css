@@ -5,33 +5,10 @@
     list-style-type: none;
 }
 
-.error {
-    width: 90%;
-    height: 10vh;
-    text-align: center;
-    color: #fff;
-    font-size: 17px;
-    background-color: rgba(211, 101, 101, 0.705);
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: .6em;
-}
-
-.hide {
-    display: none;
-}
-
-.error > p {
-    text-align: center;
-}
-
 body {
     min-height: 100vh;
     font-family: 'Noto sans';
-    background: linear-gradient(rgba(1, 1, 97, 0.795), rgb(139, 108, 250));
-    /* background-color: rgba(1, 1, 97, 0.726); */
+    background: linear-gradient(#010161cb, rgb(139, 108, 250));
     color: #fff;
     font-size: 15px;
 }
@@ -90,7 +67,7 @@ form input {
 
 form button {
     color: #fff;
-    background-color: #009c15;
+    background-color: #01aa18;
     border-radius: 0 3em 3em 0;
     border: .6px solid #929292;
     text-align: center;
@@ -129,7 +106,7 @@ li input {
 li button {
     height: 30px;
     width:  30px;
-    background-color: rgba(216, 0, 0, 0.705);
+    background-color: rgb(233, 5, 5);
     border-radius: .4em;
     text-align: center;
     border: none;
@@ -137,7 +114,29 @@ li button {
 
 li button:hover  {
     cursor: pointer;
-    border: .5px solid rgba(161, 161, 161, 0.897);
+    border: 1px solid rgba(95, 95, 95, 0.897);
+}
+
+.error {
+    width: 90%;
+    height: 10vh;
+    text-align: center;
+    color: #fff;
+    font-size: 17px;
+    background-color: rgba(211, 101, 101, 0.705);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .6em;
+}
+
+.hide {
+    display: none;
+}
+
+.error > p {
+    text-align: center;
 }
 
 @media screen and (min-width: 760px) {
