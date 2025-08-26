@@ -1,48 +1,41 @@
+// Liste des taches
+let taches = []
 
 /**
- * @param {string} elem 
+ * @param {object} elem 
  */
 function ajouter(elem) {
-    const li = document.createElement('li'); 
-    li.innerHTML += 
-        `<div class="task ${localStorage.length + 1}">
-            <input type="checkbox">${elem}
-        </div>
-        <button class="delete">X</button>`;
-    list.prepend(li);
-}
-
-/**
- * 
- * @param {object} tasks 
- */
-function recuperer(tasks) {
     const li = document.createElement('li');
+    let etat = "";
+    if (elem.done) {
+        etat = "checked";
+    }
     li.innerHTML += 
-        `<div class="task ${tasks.id}">
-            <input type="checkbox">${tasks.sujet}
+        `<div class="task" id="${elem.id}">
+            <input type="checkbox" ${etat}>${elem.sujet}
         </div>
         <button class="delete">X</button>`;
     list.prepend(li);
 }
 
 // Récupération des éléments
-const ajouer =  document.querySelector('form');
+const formulaire =  document.querySelector('form');
 const supprimer = document.querySelector('.delete');
 const champ = document.querySelector('#newtask');
 const list = document.querySelector('ul');
 
 // Affichage des tâches
 if (localStorage.length > 0) {
-    for (let i = 0 ; i < localStorage.length ; i++) {
-        const task = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        console.log(localStorage.key(i))
-        recuperer(task);
+    taches = JSON.parse(localStorage.getItem("Taches"))
+    for (let i = 0; i < taches.length ; i++) {
+        const task = taches[i];
+        ajouter(task);
+        // recuperer(task);
     }
 }
 
 // Ajout des évènements
-ajouer.addEventListener('submit', (e) => {
+formulaire.addEventListener('submit', (e) => {
     e.preventDefault();
     const texte = champ.value.trim();
     if (!texte) {
@@ -50,34 +43,36 @@ ajouer.addEventListener('submit', (e) => {
         return;
     };
     document.querySelector('.error').classList.add('hide');
-    ajouter(texte);
-    const num = localStorage.length + 1;
-    if (localStorage.length !== 0) {
-        const lastTask = JSON.parse(localStorage.getItem(localStorage.key(localStorage.length - 1)));
-        localStorage.setItem(`task ${num}`,
-            JSON.stringify({
-                id: lastTask.id + 1,
-                 sujet: texte,
-                done: false
-            })
-        );
+    if (taches.length > 0) {
+        const lastTask = taches[taches.length - 1];
+        console.log(lastTask, lastTask.id + 1);
+        const newTask = {
+            id: lastTask.id + 1,
+            sujet: texte,
+            done: false
+        };
+        taches.push(newTask);
+        ajouter(newTask);
     } else {
-        localStorage.setItem(`task 1`,
-            JSON.stringify({
-                id: 1,
-                sujet: texte,
-                done: false
-            })
-        );
+        const task1 = {
+            id: 1,
+            sujet: texte,
+            done: null
+        };
+        taches.push(task1);
+        ajouter(task1);
     }
     champ.value = '';
     champ.focus();
+    localStorage.setItem("Taches", JSON.stringify(taches));
 })
 
 list.addEventListener('click', (e) => {
     e.preventDefault();
     if (e.target.classList.contains("delete")) {
         e.target.parentElement.classList.add('hide');
-        console.log(e.target.previousSibling.previousSibling.className);
+        parent = e.target.previousSibling.previousSibling; // li correspondant
+        taches = taches.filter((elem) => elem.id !== +(parent.id)); // On retire la tache du tableau
+        localStorage.setItem("Taches", JSON.stringify(taches));
     }
 });
