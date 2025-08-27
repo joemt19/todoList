@@ -5,6 +5,11 @@
     list-style-type: none;
 }
 
+html {
+    min-height: 100vh;
+    background: linear-gradient(#010161cb, rgb(139, 108, 250));
+}
+
 body {
     min-height: 100vh;
     font-family: 'Noto sans';
