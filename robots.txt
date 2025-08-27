@@ -1,2 +1,2 @@
-User-agents: *
-Allow: https://todo-list-alpha-henna-95.vercel.app/
+user-agents: *
+allow: https://todo-list-alpha-henna-95.vercel.app/
